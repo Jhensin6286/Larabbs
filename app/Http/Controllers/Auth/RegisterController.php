@@ -18,7 +18,7 @@ class RegisterController extends Controller
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
-    */
+     */
 
     use RegistersUsers;
 
@@ -47,11 +47,21 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        return Validator::make(
+            $data,
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6|confirmed',
+            // 包含一个自定义表单验证规则
+                'captcha' => 'required|captcha',
+            ],
+        // Validator 表单验证的 make() 方法第三个参数是自定义错误提示，这里我们对验证码的错误提示进行自定义
+            [
+                'captcha.required' => '验证码为空',
+                'captcha.captcha' => '请输入正确的验证码',
+            ]
+        );
     }
 
     /**
