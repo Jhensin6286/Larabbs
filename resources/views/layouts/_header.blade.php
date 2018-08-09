@@ -38,10 +38,17 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
+
+                            <li>
+                                <a href="{{ route('users.edit', Auth::id()) }}">
+                                    编辑资料
+                                </a>
+                            </li>
+
                             <li>
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
+                                            document.getElementById('logout-form').submit();">
                                     退出登录
                                 </a>
 
@@ -49,7 +56,7 @@
                                     {{ csrf_field() }}
                                 </form>
                             </li>
-                        </ul>
+                            </ul>
                     </li>
                 @endguest
             </ul>
