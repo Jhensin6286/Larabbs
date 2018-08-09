@@ -7,8 +7,15 @@ use App\Models\User;
 use App\Http\Requests\UserRequest;
 use App\Handlers\ImageUploadHandler;
 
+
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['show']]);
+    }
+
+    
     /**
      * 展示
      */
@@ -24,6 +31,8 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        // 添加授权策略：
+        $this->authorize('update',$user);
         return view('users.edit', compact('user'));
     }
 
@@ -33,6 +42,8 @@ class UsersController extends Controller
      */
     public function update(UserRequest $request, ImageUploadHandler $uploader, User $user)
     {
+        // 添加授权策略：
+        $this->authorize('update', $user);
         // 自动验证参数
         $data = $request->all();
 
