@@ -41,3 +41,6 @@ Route::post('upload_image', 'TopicsController@uploadImage')->name('topics.upload
 // URI 最后一个参数表达式 {slug?} ，? 意味着参数可选，这是为了兼容我们数据库中 Slug 为空的话题数据。
 Route::get('topics/{topic}/{slug?}', 'TopicsController@show')->name('topics.show');
 Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]);
+
+
+Route::resource('notifications', 'NotificationsController', ['only' => ['index']]);
